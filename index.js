@@ -71,13 +71,23 @@ export default class RatingRequestor {
 			_config.title, 
 			_config.message, 
 			[
-				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
-				{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-				{ text: _config.actionLabels.accept, onPress: () => { 
-					RatingsData.recordRated(); 
-					callback(true, 'accept');
-					Linking.openURL(storeUrl);
-				}, style: 'cancel' }
+				{ 
+					text: _config.actionLabels.accept,
+					style: 'default',
+					onPress: () => { 
+						RatingsData.recordRated(); 
+						callback(true, 'accept');
+						Linking.openURL(storeUrl);
+					},
+				},
+				{
+					text: _config.actionLabels.delay, 
+					style: 'default',
+					onPress: () => {callback(true, 'delay'); } },
+				{
+					text: _config.actionLabels.decline,
+					style: 'destructive',
+					onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } }
 			]
 		);	
 	}
