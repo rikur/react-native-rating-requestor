@@ -85,6 +85,12 @@ class RatingsData {
 				console.log('Initializing blank values...');
 				await AsyncStorage.setItem(eventCountKey, '0');
 			}
+
+			if (!keys.some((key) => key === inAppReviewsThisYear)) {
+				// TODO: I don't think this actually ever gets executed...
+				console.log('Initializing blank values...');
+				await AsyncStorage.setItem(inAppReviewsThisYear, '0');
+			}
 		} catch (ex) {
 			// report error or maybe just initialize the values?
 			console.warn('Uh oh, something went wrong initializing values!', ex);
