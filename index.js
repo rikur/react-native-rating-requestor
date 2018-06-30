@@ -121,7 +121,7 @@ export default class RatingRequestor {
         onPress: () => {
           RatingsData.recordRated();
           callback(true, "accept");
-          let inAppReviewsThisYear = StoreReview.getInAppReviewsThisYear();
+          let inAppReviewsThisYear = RatingsData.getInAppReviewsThisYear();
 					if (Platform.OS === 'ios' && StoreReview.isAvailable && inAppReviewsThisYear < 3) {
   						StoreReview.requestReview();
           } else {
