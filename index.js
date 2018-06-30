@@ -1,4 +1,5 @@
 import React, { Platform, Alert, Linking } from "react-native";
+import * as StoreReview from 'react-native-store-review';
 
 import RatingsData from "./RatingsData";
 
@@ -20,7 +21,7 @@ const _config = {
   },
   timingFunction: function(currentCount) {
     return (
-      currentCount > 1 &&
+      currentCount > 8 &&
       (Math.log(currentCount) / Math.log(3)).toFixed(4) % 1 == 0
     );
   },
@@ -120,7 +121,12 @@ export default class RatingRequestor {
         onPress: () => {
           RatingsData.recordRated();
           callback(true, "accept");
-          Linking.openURL(this.storeUrl);
+          let inAppReviewsThisYear = StoreReview.getInAppReviewsThisYear();
+					if (Platform.OS === 'ios' && StoreReview.isAvailable && inAppReviewsThisYear < 3) {
+  						StoreReview.requestReview();
+          } else {
+  						Linking.openURL(storeUrl);
+          }
         },
         style: "default",
       }

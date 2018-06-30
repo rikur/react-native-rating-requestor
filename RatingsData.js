@@ -4,6 +4,7 @@ const keyPrefix = '@RatingRequestData.';
 const eventCountKey = keyPrefix + 'positiveEventCount';
 const ratedTimestamp = keyPrefix + 'ratedTimestamp';
 const declinedTimestamp = keyPrefix + 'declinedTimestamp';
+const inAppReviewsThisYear = keyPrefix + 'inAppReviewsForYear' + new Date().getUTCFullYear();
 
 /**
  * Private class that let's us interact with AsyncStorage on the device
@@ -22,6 +23,15 @@ class RatingsData {
 			return parseInt(countString, 10);
 		} catch (ex) {
 			console.warn('Couldn\'t retrieve positive events count. Error:', ex);
+		}
+	}
+
+	async getInAppReviewsThisYear() {
+		try {
+			let inAppReviewsCountString = await AsyncStorage.getItem(inAppReviewsThisYear);
+			return parseInt(inAppReviewsCountString, 10);
+		} catch (ex) {
+			console.warn('Couldn\'t retrieve In-App Reviews count. Error:', ex);
 		}
 	}
 
@@ -57,6 +67,8 @@ class RatingsData {
 
 	async recordRated() {
 		try {
+			let currentCount = await this.getInAppReviewsThisYear();
+			await AsyncStorage.setItem(inAppReviewsThisYear, (currentCount + 1).toString());
 			await AsyncStorage.setItem(ratedTimestamp, Date.now().toString());
 		} catch (ex) {
 			console.warn('Couldn\'t set rated timestamp.', ex);

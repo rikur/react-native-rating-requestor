@@ -28,6 +28,9 @@
     "url": "https://github.com/jlyman/react-native-rating-requestor/issues"
   },
   "homepage": "https://github.com/jlyman/react-native-rating-requestor#readme",
+  "dependencies": {
+    "react-native-store-review": "^0.1.5"
+  },
   "peerDependencies": {
     "react-native": ">= 0.26.0"
   }
