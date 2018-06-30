@@ -125,7 +125,7 @@ export default class RatingRequestor {
 					if (Platform.OS === 'ios' && StoreReview.isAvailable && inAppReviewsThisYear < 3) {
   						StoreReview.requestReview();
           } else {
-  						Linking.openURL(storeUrl);
+  						Linking.openURL(this.storeUrl);
           }
         },
         style: "default",
